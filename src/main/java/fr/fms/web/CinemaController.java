@@ -2,6 +2,7 @@ package fr.fms.web;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.Cinema;
+import fr.fms.entities.Film;
 import fr.fms.exceptions.ManageErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,5 +48,14 @@ public class CinemaController {
             logger.error("[CINEMA CONTROLLER : INDEX] : {} " , e.getMessage());
         }
         return "cinemas";
+    }
+
+    @GetMapping("/cinema_detail")
+    public String cinema(Long id, Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+        Page<Film> films = business.getFilmsByCinemaPage(id, page);
+        model.addAttribute("listFilm", films.getContent());
+        model.addAttribute("pages", new int[films.getTotalPages()]);
+        model.addAttribute("currentPage", page);
+        return "films";
     }
 }

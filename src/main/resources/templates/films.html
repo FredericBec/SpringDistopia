@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form th:action="@{/index}" method="get">
+                    <label>Rechercher un film</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-bg-primary">Liste des cinémas</div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                    </tr>
+                    <tr th:each="film:${listFilm}">
+                        <td ><a th:text="${film.name}" th:href="@{/showings(id=${film.id})}"></a></td>
+                        <td th:text="${film.description}"></td>
+                        <td th:text="${film.duration}"></td>
+                    </tr>
+                </table>
+                <ul class="pagination">
+                    <li th:class="${currentPage==status.index}?'active':''" th:each="page, status:${pages}">
+                        <a class="page-link" th:href="@{/cinema_detail(page=${status.index})}"
+                           th:text="${status.index}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
