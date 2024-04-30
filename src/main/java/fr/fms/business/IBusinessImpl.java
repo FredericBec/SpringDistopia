@@ -11,9 +11,11 @@ import fr.fms.entities.Showing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class IBusinessImpl implements IBusiness{
 
     @Autowired
@@ -30,7 +32,7 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public Page<Cinema> getCinemasPages(String kw, int page) {
-        return cinemaRepository.findByName(kw, PageRequest.of(page, 5));
+        return cinemaRepository.findByNameContains(kw, PageRequest.of(page, 5));
     }
 
     @Override
