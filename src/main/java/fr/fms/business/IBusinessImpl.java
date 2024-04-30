@@ -47,7 +47,7 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public Page<Film> getFilmsByCinemaPage(Long cinemaId, int page) {
-        return null;
+        return filmRepository.findByCinemasId(cinemaId, PageRequest.of(page, 5));
     }
 
     @Override
