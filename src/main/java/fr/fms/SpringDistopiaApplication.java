@@ -80,11 +80,11 @@ public class SpringDistopiaApplication implements CommandLineRunner {
 		showingList.add(eightyPm);
 		showingList.add(ninetyPm);
 
-		Film fallGuy = new Film(null, "The Fall guy", "C'est l’histoire d’un cascadeur, et comme tous les cascadeurs, il se fait tirer dessus, exploser, écraser, jeter par les fenêtres et tombe toujours de plus en plus haut…", "2h05", null, showingList);
-		Film godzilla = new Film(null, "Godzilla x Kong : Le nouvel Empire", "Le tout-puissant Kong et le redoutable Godzilla unissent leurs forces contre une terrible menace encore secrète qui risque de les anéantir et qui met en danger la survie même de l’espèce humaine.", "1h55", null, showingList);
-		Film challenger = new Film(null, "Challengers", "Durant leurs études, Patrick et Art, tombent amoureux de Tashi. À la fois amis, amants et rivaux, ils voient tous les trois leurs chemins se recroiser des années plus tard.", "2h11", null, showingList);
+		Film fallGuy = new Film(null, "The Fall guy", "C'est l’histoire d’un cascadeur, et comme tous les cascadeurs, il se fait tirer dessus et tombe toujours de plus en plus haut…", "2h05", null, showingList);
+		Film godzilla = new Film(null, "Godzilla x Kong : Le nouvel Empire", "Le tout-puissant Kong et le redoutable Godzilla unissent leurs forces contre une terrible menace.", "1h55", null, showingList);
+		Film challenger = new Film(null, "Challengers", "Durant leurs études, Patrick et Art, tombent amoureux de Tashi. À la fois amis, amants et rivaux.", "2h11", null, showingList);
 		Film civilWar = new Film(null, "Civil War", "Une course effrénée à travers une Amérique fracturée qui, dans un futur proche, est plus que jamais sur le fil du rasoir.", "1h49", null, showingList);
-		Film dune = new Film(null, "Dune : part two", "Dans DUNE : DEUXIÈME PARTIE, Paul Atreides s’unit à Chani et aux Fremen pour mener la révolte contre ceux qui ont anéanti sa famille. Hanté par de sombres prémonitions", "2h46", null, showingList);
+		Film dune = new Film(null, "Dune : part two", "Dans DUNE : DEUXIÈME PARTIE, Paul Atreides s’unit à Chani et aux Fremen pour mener la révolte contre ceux qui ont anéanti sa famille.", "2h46", null, showingList);
 
 		filmRepository.save(fallGuy);
 		filmRepository.save(godzilla);
