@@ -19,7 +19,7 @@
     <div class="container">
         <div class="card mb-4">
             <div class="card-body">
-                <form th:action="@{/index}" method="get">
+                <form th:action="@{/cinema_detail}" method="get">
                     <label>Rechercher un cinéma</label>
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -33,10 +33,9 @@
                     <tr>
                         <th>Nom</th>
                         <th>Adresse</th>
-                        <th>Films à l'affiche</th>
                     </tr>
                     <tr th:each="cinema:${listCinema}">
-                        <td th:text="${cinema.name}"></td>
+                        <td ><a th:href="@{/cinema_detail(id=${cinema.id})}" th:text="${cinema.name}"></a></td>
                         <td th:text="${cinema.address}"></td>
                     </tr>
                 </table>
