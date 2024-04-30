@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -17,11 +19,17 @@ public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
+
+    @NotNull
+    @Size(min = 5, max = 150)
     private String description;
+
+    @NotNull
     private String duration;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "films")
     private Collection<Cinema> cinemas;
 
     @ManyToMany
