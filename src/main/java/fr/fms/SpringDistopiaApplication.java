@@ -1,19 +1,15 @@
 package fr.fms;
 
-import fr.fms.dao.CinemaRepository;
-import fr.fms.dao.CityRepository;
-import fr.fms.dao.FilmRepository;
-import fr.fms.dao.ShowingRepository;
-import fr.fms.entities.Cinema;
-import fr.fms.entities.City;
-import fr.fms.entities.Film;
-import fr.fms.entities.Showing;
+import fr.fms.dao.*;
+import fr.fms.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -30,6 +26,15 @@ public class SpringDistopiaApplication implements CommandLineRunner {
 
 	@Autowired
 	ShowingRepository showingRepository;
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	RoleRepository roleRepository;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDistopiaApplication.class, args);
@@ -110,5 +115,16 @@ public class SpringDistopiaApplication implements CommandLineRunner {
 		cinemaRepository.save(new Cinema(null, "Cinéma Rialto", "4, rue de Rivoli 06000 Nice", nice, filmList));
 		cinemaRepository.save(new Cinema(null, "Cinéma Arvor", "11 rue de Châtillon 35000 Rennes", rennes, filmList));
 		cinemaRepository.save(new Cinema(null, "Megarama Nice", "21 Rue Jules et Aline Avigdor 06300 Nice", paris, filmList));
+
+		Role user = roleRepository.save(new Role("USER", null));
+		Role admin = roleRepository.save(new Role("ADMIN", null));
+		createUserWithRoles("fred2024", "fmsAcad@2024$", true, admin, user);
+		createUserWithRoles("Josette", "@Pelote2024!", true, user);
+	}
+
+	private void createUserWithRoles(String username, String password, boolean active, Role... roles) {
+		List<Role> userRoles = Arrays.asList(roles);
+		String encodedPassword = passwordEncoder.encode(password);
+		userRepository.save(new User(username, encodedPassword, active, userRoles));
 	}
 }
