@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+    <meta charset="utf-8">
+    <title>Ajout d'une ville</title>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content" class="row justify-content-center align-items-center">
+        <div class="col-md-4 col-xs-8">
+            <div class="card">
+                <div class="card-header text-bg-primary">Ajouter une ville</div>
+                <div class="card-body">
+                    <form th:action="@{/saveCity}" method="post">
+                        <div class="form-group d-none">
+                            <label class="control-label"> Id :  </label> <label th:text=${city.id}></label>
+                            <input class="form-control" type="hidden" name="id" th:value="${city.id}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nom :</label>
+                            <input type="text" class="form-control" id="name" name="name" th:value="${city.name}">
+                            <span th:errors="${city.name}" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3" th:each="cinema:${city.cinemas}" >
+                            <label for="cinema" class="form-label">Nom :</label>
+                            <input type="text" class="form-control" id="cinema" name="cinema" th:value="${cinema.name}">
+                            <span th:errors="${city.name}" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

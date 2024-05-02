@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" layout:decorate="layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Villes</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="card mb-2 mt-2">
+            <div class="card-body">
+                <form th:action="@{/cities}" method="get">
+                    <label>Rechercher une ville</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <a class="btn btn-primary" th:href="@{/addCity}">Ajouter une ville</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-bg-primary">Liste des villes</div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Cinémas</th>
+                    </tr>
+                    <tr th:each="city:${listCity}">
+                        <td th:text="${city.name}"></td>
+                        <td>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item" th:each="cinema:${city.cinemas}" th:text="${cinema.name}"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" onclick="return confirm('Etes vous sur?')"
+                               th:href="@{/deleteCity(id=${city.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/editCity(id=${city.id})}">Update</a>
+                        </td>
+                    </tr>
+                </table>
+                <ul class="pagination">
+                    <li th:class="${currentPage==status.index}?'active':''" th:each="page, status:${pages}">
+                        <a class="page-link" th:href="@{/cities(page=${status.index}, keyword=${keyword})}"
+                           th:text="${status.index}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
