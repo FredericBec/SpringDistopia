@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IBusinessImpl implements IBusiness{
@@ -51,8 +52,8 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
-    public void getShowingsByFilm() {
-
+    public List<Showing> getShowingsByFilm(Long filmId) {
+        return showingRepository.findByFilmsId(filmId);
     }
 
     @Override
@@ -87,6 +88,16 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public void deleteCinemaById(Long id) {
+
+    }
+
+    @Override
+    public Optional<Film> getFilmById(Long id) {
+        return filmRepository.findById(id);
+    }
+
+    @Override
+    public void deleteFilmById(Long id) {
 
     }
 
