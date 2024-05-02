@@ -57,8 +57,10 @@ public class CinemaController {
     }
 
     @GetMapping("/cinema_detail")
-    public String cinema(Long id, Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+    public String cinema(Long id, Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                         @RequestParam(name="cityId" , defaultValue = "0") Long cityId){
         Page<Film> films = business.getFilmsByCinemaPage(id, page);
+        model.addAttribute("cityId", cityId);
         model.addAttribute("listFilm", films.getContent());
         model.addAttribute("pages", new int[films.getTotalPages()]);
         model.addAttribute("currentPage", page);

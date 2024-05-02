@@ -43,7 +43,7 @@
                     <li class="nav-item mx-2" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{/cities}">Gestion des villes</a>
                     </li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item mx-2" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{/cinema}">Ajouter un cinéma</a>
                     </li>
                 </ul>

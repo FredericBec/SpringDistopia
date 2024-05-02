@@ -42,6 +42,16 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
+    public List<Cinema> getCinemasByCity(Long id) {
+        return cinemaRepository.findByCityId(id);
+    }
+
+    @Override
+    public List<Cinema> getCinemas() {
+        return cinemaRepository.findAll();
+    }
+
+    @Override
     public List<City> getCities() {
         return cityRepository.findAll();
     }
@@ -72,6 +82,11 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
+    public void saveFilm(Film film) {
+        filmRepository.save(film);
+    }
+
+    @Override
     public void saveShowing(Showing showing) {
         showingRepository.save(showing);
     }
@@ -99,8 +114,9 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
-    public Optional<Film> getFilmById(Long id) {
-        return filmRepository.findById(id);
+    public Film getFilmById(Long id) {
+        Optional<Film> optional = filmRepository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override
@@ -110,7 +126,8 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public Showing getShowingById(Long id) {
-        return null;
+        Optional<Showing> optional = showingRepository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override
