@@ -42,7 +42,7 @@ public class SpringDistopiaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		generateData();
+		//generateData();
 	}
 
 	public void generateData(){
