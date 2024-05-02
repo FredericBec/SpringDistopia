@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-bg-primary">Séances</div>
+            <div class="card-body">
+                <h5 th:text="${film.name}"></h5>
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item" th:each="showing:${listShowing}"><a th:text="${showing.hour}"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
