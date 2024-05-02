@@ -20,5 +20,6 @@ public class City implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "city")
+    @ToString.Exclude
     private Collection<Cinema> cinemas;
 }
