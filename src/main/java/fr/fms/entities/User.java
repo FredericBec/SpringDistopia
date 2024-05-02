@@ -18,6 +18,8 @@ public class User implements Serializable {
 
     private String password;
 
+    private boolean active;
+
     @ManyToMany
     private Collection<Role> roles;
 }
