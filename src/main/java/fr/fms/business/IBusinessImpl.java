@@ -88,8 +88,9 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
-    public Cinema getCinemaById(Long id) {
-        return null;
+    public Cinema getCinemaById(Long id) throws Exception{
+        Optional<Cinema> optional = cinemaRepository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override

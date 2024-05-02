@@ -22,7 +22,7 @@ public interface IBusiness {
     void saveShowing(Showing showing);
     City getCityById(Long id);
     void deleteCityById(Long id);
-    Cinema getCinemaById(Long id);
+    Cinema getCinemaById(Long id) throws Exception;
     void deleteCinemaById(Long id);
     Optional<Film> getFilmById(Long id);
     void deleteFilmById(Long id);

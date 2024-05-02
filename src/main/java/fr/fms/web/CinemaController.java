@@ -2,6 +2,7 @@ package fr.fms.web;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.Cinema;
+import fr.fms.entities.City;
 import fr.fms.entities.Film;
 import fr.fms.exceptions.ManageErrors;
 import org.slf4j.Logger;
@@ -10,9 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class CinemaController {
@@ -57,5 +63,57 @@ public class CinemaController {
         model.addAttribute("pages", new int[films.getTotalPages()]);
         model.addAttribute("currentPage", page);
         return "films";
+    }
+
+    @GetMapping("/cinema")
+    public String addCinema(Model model){
+        model.addAttribute("cinema", new Cinema());
+        try {
+            model.addAttribute("cities", business.getCities());
+        }catch (Exception e){
+            model.addAttribute("error",e.getMessage());
+            logger.error("[CINEMA CONTROLLER : MANAGE NEW CINEMA] : {} " , e.getMessage());
+        }
+        return "cinema";
+    }
+
+    @PostMapping("/saveCinema")
+    public String saveCinema(@Valid Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs){
+        try {
+            if(bindingResult.hasErrors()) {
+                //model.addAttribute("cities", business.getCities());
+                return "city";
+            }
+            business.saveCinema(cinema);
+        }catch (Exception e){
+            redirectAttrs.addAttribute("error",e.getMessage());
+            logger.error("[CINEMA CONTROLLER : SAVE CINEMA] : {} " , e.getMessage());
+        }
+        return "redirect:/index";
+    }
+
+    @GetMapping("/deleteCinema")
+    public String deleteCinema(Long id, int page, String keyword, RedirectAttributes redirectAttrs){
+        try{
+            business.deleteCinemaById(id);
+        }catch (Exception e){
+            redirectAttrs.addAttribute("error",e.getMessage());
+            logger.error("[CINEMA CONTROLLER : DELETE] : {} " , e.getMessage());
+        }
+        return "redirect:/index?page=" + page + "&keyword=" + keyword;
+    }
+
+    @GetMapping("/editCinema")
+    public String editCinema(Long id, Model model){
+        Cinema cinema;
+        try {
+            cinema = business.getCinemaById(id);
+            model.addAttribute("cities", business.getCities());
+            model.addAttribute("cinema", cinema);
+        }catch (Exception e){
+            model.addAttribute("error",e.getMessage());
+            logger.error("[CINEMA CONTROLLER : EDIT] : {} " , e.getMessage());
+        }
+        return "editCinema";
     }
 }
