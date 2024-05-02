@@ -47,6 +47,11 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
+    public Page<City> getCitiesPages(String kw, int page) {
+        return cityRepository.findByNameContains(kw, PageRequest.of(page, 5));
+    }
+
+    @Override
     public Page<Film> getFilmsByCinemaPage(Long cinemaId, int page) {
         return filmRepository.findByCinemasId(cinemaId, PageRequest.of(page, 5));
     }
@@ -57,28 +62,29 @@ public class IBusinessImpl implements IBusiness{
     }
 
     @Override
-    public void saveCity() {
-
+    public void saveCity(City city) {
+        cityRepository.save(city);
     }
 
     @Override
-    public void saveCinema() {
-
+    public void saveCinema(Cinema cinema) {
+        cinemaRepository.save(cinema);
     }
 
     @Override
-    public void saveShowing() {
-
+    public void saveShowing(Showing showing) {
+        showingRepository.save(showing);
     }
 
     @Override
     public City getCityById(Long id) {
-        return null;
+        Optional<City> optional = cityRepository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override
     public void deleteCityById(Long id) {
-
+        cityRepository.deleteById(id);
     }
 
     @Override
@@ -88,7 +94,7 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public void deleteCinemaById(Long id) {
-
+        cinemaRepository.deleteById(id);
     }
 
     @Override
@@ -98,7 +104,7 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public void deleteFilmById(Long id) {
-
+        filmRepository.deleteById(id);
     }
 
     @Override
@@ -108,6 +114,6 @@ public class IBusinessImpl implements IBusiness{
 
     @Override
     public void deleteShowingById(Long id) {
-
+        showingRepository.deleteById(id);
     }
 }

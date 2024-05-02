@@ -14,11 +14,12 @@ public interface IBusiness {
     Page<Cinema> getCinemasPages(String kw, int page);
     Page<Cinema> getCinemaByCityPage(Long cityId, int page);
     List<City> getCities();
+    Page<City> getCitiesPages(String kw, int page);
     Page<Film> getFilmsByCinemaPage(Long cinemaId, int page);
     List<Showing> getShowingsByFilm(Long filmId);
-    void saveCity();
-    void saveCinema();
-    void saveShowing();
+    void saveCity(City city);
+    void saveCinema(Cinema cinema);
+    void saveShowing(Showing showing);
     City getCityById(Long id);
     void deleteCityById(Long id);
     Cinema getCinemaById(Long id);
