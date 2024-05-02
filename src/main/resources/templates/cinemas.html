@@ -19,7 +19,7 @@
     <div class="container">
         <div class="card mb-4">
             <div class="card-body">
-                <form th:action="@{/cinema_detail}" method="get">
+                <form th:action="@{/index}" method="get">
                     <label>Rechercher un cinéma</label>
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -37,11 +37,18 @@
                     <tr th:each="cinema:${listCinema}">
                         <td ><a th:href="@{/cinema_detail(id=${cinema.id})}" th:text="${cinema.name}"></a></td>
                         <td th:text="${cinema.address}"></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-danger" onclick="return confirm('Etes vous sur?')"
+                               th:href="@{/deleteCinema(id=${cinema.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-success" th:href="@{/editCinema(id=${cinema.id})}">Update</a>
+                        </td>
                     </tr>
                 </table>
                 <ul class="pagination">
                     <li th:class="${currentPage==status.index}?'active':''" th:each="page, status:${pages}">
-                        <a class="page-link" th:href="@{/index(page=${status.index}, keyword=${keyword}, category=${category})}"
+                        <a class="page-link" th:href="@{/index(page=${status.index}, keyword=${keyword}, cityId=${cityId})}"
                            th:text="${status.index}"></a>
                     </li>
                 </ul>
